@@ -8,7 +8,7 @@ Lumen doesn't have form request validator seperatly. This package helps develope
 
 `$app->register(Pearl\RequestValidate\RequestServiceProvider::class);`
 
-Next step is create your validator class using below comend
+Next step is create your validator class using below console comment
 
 `php artisan make:request {class_name}`
 
@@ -32,7 +32,7 @@ class Login extends RequestAbstract
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
