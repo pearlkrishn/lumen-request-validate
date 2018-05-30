@@ -3,6 +3,7 @@
 namespace Pearl\RequestValidate;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
@@ -91,11 +92,11 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      * Format the errors from the given Validator instance.
      *
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
-     * @return array
+     * @return \Illuminate\Http\JsonResponse
      */
     protected function formatErrors(Validator $validator)
     {
-        return $validator->getMessageBag()->toArray();
+        return new JsonResponse($validator->getMessageBag()->toArray(), 422);
     }
 
     /**
