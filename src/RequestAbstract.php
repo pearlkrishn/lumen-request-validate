@@ -131,4 +131,14 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
 
         return $this;
     }
+
+    /**
+     * Get the validated data from the request.
+     *
+     * @return array
+     */
+    public function validated()
+    {
+        return $this->getValidatorInstance()->validated();
+    }
 }
