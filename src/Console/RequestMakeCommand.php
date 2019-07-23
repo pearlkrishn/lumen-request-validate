@@ -32,7 +32,7 @@ class RequestMakeCommand extends GeneratorCommand
      *
      * @return string
      */
-    protected function getStub()
+    protected function getStub(): string
     {
         return __DIR__ . '/stubs/request.stub';
     }
@@ -43,7 +43,7 @@ class RequestMakeCommand extends GeneratorCommand
      * @param  string  $rootNamespace
      * @return string
      */
-    protected function getDefaultNamespace($rootNamespace)
+    protected function getDefaultNamespace($rootNamespace): string
     {
         return $rootNamespace . '\Http\Requests';
     }

@@ -2,7 +2,7 @@
 
 namespace Pearl\RequestValidate;
 
-use Illuminate\Http\Request;
+use Laravel\Lumen\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Validation\Validator;
@@ -34,7 +34,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function getValidatorInstance()
+    protected function getValidatorInstance(): Validator
     {
         $factory = $this->container->make(ValidationFactory::class);
 
@@ -57,7 +57,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      * @param  \Illuminate\Contracts\Validation\Factory  $factory
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function createDefaultValidator(ValidationFactory $factory)
+    protected function createDefaultValidator(ValidationFactory $factory): Validator
     {
         return $factory->make(
             $this->validationData(), $this->container->call([$this, 'rules']),
@@ -70,7 +70,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      *
      * @return array
      */
-    protected function validationData()
+    protected function validationData(): array
     {
         return $this->all();
     }
@@ -83,7 +83,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function failedValidation(Validator $validator)
+    protected function failedValidation(Validator $validator): ValidationException
     {
         throw new ValidationException($validator, $this->formatErrors($validator));
     }
@@ -94,7 +94,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function formatErrors(Validator $validator)
+    protected function formatErrors(Validator $validator): JsonResponse
     {
         return new JsonResponse($validator->getMessageBag()->toArray(), 422);
     }
@@ -104,7 +104,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [];
     }
@@ -114,7 +114,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [];
     }
@@ -125,7 +125,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      * @param  \Illuminate\Contracts\Container\Container  $container
      * @return $this
      */
-    public function setContainer(Container $container)
+    public function setContainer(Container $container): RequestAbstract
     {
         $this->container = $container;
 
@@ -137,7 +137,7 @@ abstract class RequestAbstract extends Request implements ValidatesWhenResolved
      *
      * @return array
      */
-    public function validated()
+    public function validated(): array
     {
         return $this->getValidatorInstance()->validated();
     }
