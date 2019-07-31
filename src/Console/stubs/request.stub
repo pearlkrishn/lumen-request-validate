@@ -11,7 +11,7 @@ class DummyClass extends RequestAbstract
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,7 +21,7 @@ class DummyClass extends RequestAbstract
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             //
@@ -33,7 +33,7 @@ class DummyClass extends RequestAbstract
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //
