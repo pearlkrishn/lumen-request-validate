@@ -80,3 +80,39 @@ class ExampleController extends Controller
     }
 ...
 ```
+
+
+ ## How to customize error response?
+ Now you can customize your error response
+```php
+<?php
+
+    /**
+     * Add this two line
+     */
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\JsonResponse as JsonResponse;
+
+class Login extends RequestAbstract
+{
+    ...
+    protected function formatErrors(Validator $validator): JsonResponse
+    {
+        $errors = [];
+        $messages = $validator->getMessageBag();
+        foreach ($messages->all() as $message) {
+            $errors[] = $message;
+        }
+
+        return response()->json(
+            [ 
+                'success' => false, 
+                'data' => [], 
+                'message' => 'Unsuccessful!', 
+                'errors' => $errors
+            ]
+            ,JsonResponse::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+}
+```
